@@ -1,0 +1,12 @@
+.results {
+	height: 415px;
+	width: 400px;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	border-radius: 10px;
+	background-color: #393F6E;
+}

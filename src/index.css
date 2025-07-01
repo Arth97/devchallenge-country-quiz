@@ -16,40 +16,58 @@ code {
   font-family: 'Be Vietnam Pro', sans-serif;
   font-weight: 500;
   font-size: 1.5rem; /* 24px */
+	color: #E2E4F3;
 }
 
 .text-semibold-20 {
   font-family: 'Be Vietnam Pro', sans-serif;
   font-weight: 600;
   font-size: 1.25rem; /* 20px */
+	color: #E2E4F3;
 }
 
 .text-semibold-16 {
   font-family: 'Be Vietnam Pro', sans-serif;
   font-weight: 600;
   font-size: 1rem; /* 16px */
+	color: #E2E4F3;
 }
 
 .text-medium-16 {
   font-family: 'Be Vietnam Pro', sans-serif;
   font-weight: 500;
   font-size: 1rem; /* 16px */
+	color: #E2E4F3;
 }
 
 .text-bold-14 {
   font-family: 'Be Vietnam Pro', sans-serif;
   font-weight: 700;
   font-size: 0.875rem; /* 14px */
+	color: #E2E4F3;
 }
 
-body {
-	background-image: url('/public/bg.jpg');
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+#root {
+	width: 100%;
+	height: 100%;
 
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+}
+
+body {
+	min-height: 100vh;
+	min-width: 100vw;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	background-image: url('/public/bg.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
