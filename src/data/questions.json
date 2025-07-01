@@ -1,0 +1,52 @@
+[
+  {
+    "type": "capital",
+    "question": "What is the capital of France?",
+    "options": ["Berlin", "Madrid", "Paris", "Rome"],
+    "answer": "Paris"
+  },
+  {
+    "question": "Which country does this flag belong to?",
+    "type": "flag",
+    "image": "https://flagcdn.com/fr.svg",
+    "options": ["Italy", "France", "United Kingdom", "Netherlands"],
+    "answer": "France"
+  },
+  {
+    "type": "language",
+    "question": "What language is spoken in Brazil?",
+    "options": ["Spanish", "Portuguese", "French", "English"],
+    "answer": "Portuguese"
+  },
+  {
+    "question": "On which continent is ",
+    "type": "continent",
+    "question2": "located?",
+    "options": ["Asia", "Africa", "Europe", "America"],
+    "answer": "Europe"
+  },
+  {
+    "type": "currency",
+    "question": "What is the currency of Russia?",
+    "options": ["Euro", "Ruble", "Dollar", "Real"],
+    "answer": "Ruble"
+  },
+  {
+    "type": "borders",
+    "question": "Which of these countries borders France?",
+    "options": ["Spain", "Egypt", "Australia", "Japan"],
+    "answer": "Spain"
+  },
+  {
+    "type": "car_side",
+    "question": "On which side of the road do they drive in the United Kingdom?",
+    "options": ["Left", "Right", "Center", "No rule"],
+    "answer": "Left"
+  },
+  {
+    "type": "landlocked",
+    "question": "Is this country landlocked? (Germany)",
+    "options": ["Yes", "No", "Unknown", "Partially"],
+    "answer": "No"
+  }
+]

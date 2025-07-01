@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import './quiz.css';
+import _ from 'lodash';
+import questionsJson from '../../data/questions.json';
 
 const Quiz = () => {
 	const [questions, setQuestions] = useState([]);
@@ -7,9 +9,10 @@ const Quiz = () => {
   const [userAnswers, setUserAnswers] = useState([]);
   const [showResult, setShowResult] = useState(false);
 
-	const APIURL = "https://restcountries.com/v3.1/all?limit=10";
+	const APIURL = "https://restcountries.com/v3.1/all?fields=name,capital,flags,region,continents,currencies,borders,car,landlocked";
 
   useEffect(() => {
+		setQuestions(questionsJson)
 		fetchData();
   }, []);
 
@@ -17,8 +20,9 @@ const Quiz = () => {
 		try {
 			const response = await fetch(APIURL);
 			const data = await response.json();
-			console.log("data", data);
-			return data;
+			const randomData = _.sampleSize(data, 10);
+			console.log("randomData", randomData);
+			return randomData;
 		} catch (err) {
 			console.log("err", err);
 		}
@@ -37,7 +41,7 @@ const Quiz = () => {
   };
 
   const handleFinishQuiz = () => {
-		
+
   };
 
   return (
