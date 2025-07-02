@@ -10,6 +10,7 @@ root.render(
 		<BrowserRouter>
 			<Routes>
 				<Route path="/" element={<Quiz />} />
+				<Route path="/:questionIndex" element={<Quiz />} />
 				<Route path="/results" element={<Results />} />
 			</Routes>
 		</BrowserRouter>
