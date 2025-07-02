@@ -10,6 +10,7 @@ const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const [showResult, setShowResult] = useState(false);
+  const [data, setData] = useState({});
 
 	const pointsCounter = 0;
 
@@ -31,7 +32,8 @@ const Quiz = () => {
 			const data = await response.json();
 			const randomData = _.sampleSize(data, 10);
 			console.log("randomData", randomData);
-			return randomData;
+			setData(randomData);
+			return;
 		} catch (err) {
 			console.log("err", err);
 		}
@@ -62,7 +64,7 @@ const Quiz = () => {
 					<p><span>{pointsCounter}</span>/10 Points</p>
 				</div>
 			</div>
-			<Question questionIndex={questionIndex} question={questions[questionIndex]}/>
+			<Question questionIndex={questionIndex} question={questions[Number(questionIndex)-1]} data={data}/>
     </div>
   );
 };

@@ -1,51 +1,56 @@
 [
   {
     "type": "capital",
-    "question": "What is the capital of France?",
+    "question": "What is the capital of ",
+    "question2": "?",
     "options": ["Berlin", "Madrid", "Paris", "Rome"],
     "answer": "Paris"
   },
   {
-    "question": "Which country does this flag belong to?",
     "type": "flag",
+    "question": "Which country does this flag belong to?",
     "image": "https://flagcdn.com/fr.svg",
     "options": ["Italy", "France", "United Kingdom", "Netherlands"],
     "answer": "France"
   },
   {
     "type": "language",
-    "question": "What language is spoken in Brazil?",
+    "question": "What language is spoken in ",
+    "question2": "?",
     "options": ["Spanish", "Portuguese", "French", "English"],
     "answer": "Portuguese"
   },
   {
-    "question": "On which continent is ",
     "type": "continent",
-    "question2": "located?",
+    "question": "On which continent is ",
+    "question2": " located?",
     "options": ["Asia", "Africa", "Europe", "America"],
     "answer": "Europe"
   },
   {
     "type": "currency",
-    "question": "What is the currency of Russia?",
+    "question": "What is the currency of ",
+    "question2": "?",
     "options": ["Euro", "Ruble", "Dollar", "Real"],
     "answer": "Ruble"
   },
   {
     "type": "borders",
-    "question": "Which of these countries borders France?",
+    "question": "Which of these countries borders ",
+    "question2": "?",
     "options": ["Spain", "Egypt", "Australia", "Japan"],
     "answer": "Spain"
   },
   {
     "type": "car_side",
-    "question": "On which side of the road do they drive in the United Kingdom?",
+    "question": "On which side of the road do they drive in ",
+    "question2": "?",
     "options": ["Left", "Right", "Center", "No rule"],
     "answer": "Left"
   },
   {
     "type": "landlocked",
-    "question": "Is this country landlocked? (Germany)",
+    "question": "Is this country landlocked? ",
     "options": ["Yes", "No", "Unknown", "Partially"],
     "answer": "No"
   }
