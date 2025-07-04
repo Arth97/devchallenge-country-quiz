@@ -10,7 +10,7 @@ const Quiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
   const [showResult, setShowResult] = useState(false);
-  const [data, setData] = useState({});
+  const [countriesData, setCountriesData] = useState([]);
 
 	const pointsCounter = 0;
 
@@ -20,11 +20,26 @@ const Quiz = () => {
 	const { questionIndex } = useParams();
 
   useEffect(() => {
-		setQuestions(questionsJson)
+		// setQuestions(questionsJson)
 		fetchData();
 		navigate('/1')
-		console.log("questionIndex", questionIndex);
+		createQuestions();
   }, []);
+
+	const createQuestions = () => {
+		if (countriesData.length === 0) return;
+		console.log("createQuestionss")
+		let auxQuestion = {};
+		countriesData.map((country, index) => {
+			console.log("MAP-INDEX", index)
+		})
+
+		setQuestions([...questions, auxQuestion])
+	}
+
+	useEffect(() => {
+		
+  }, [questionIndex]);
 
 	const fetchData = async () => {
 		try {
@@ -32,7 +47,7 @@ const Quiz = () => {
 			const data = await response.json();
 			const randomData = _.sampleSize(data, 10);
 			console.log("randomData", randomData);
-			setData(randomData);
+			setCountriesData(randomData);
 			return;
 		} catch (err) {
 			console.log("err", err);
@@ -64,7 +79,7 @@ const Quiz = () => {
 					<p><span>{pointsCounter}</span>/10 Points</p>
 				</div>
 			</div>
-			<Question questionIndex={questionIndex} question={questions[Number(questionIndex)-1]} data={data}/>
+			<Question questionIndex={questionIndex} questionJson={questionsJson[Number(questionIndex)-1]} countriesData={countriesData}/>
     </div>
   );
 };

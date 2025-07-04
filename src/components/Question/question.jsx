@@ -2,38 +2,31 @@ import { useEffect } from 'react';
 import './question.css';
 import { useNavigate } from 'react-router';
 
-const Question = ({questionIndex, question, data}) => {
+const Question = ({questionIndex, questionJson, countriesData}) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		console.log("QUESTION", question);
-		console.log("DATA", data);
+		// console.log("QUESTIONJSON", questionJson);
+		// console.log("COUNTRIES-DATA", countriesData);
+		// console.log("questionIndex", questionIndex);
 	});
 
 	const getQuestion = () => {
-		switch (question?.type) {
-			case "flag":
-				return (
-					<>
-						<p>{question?.question}</p>
-						<div className="flag-img-wrapper">
-							<img src={data[questionIndex-1]?.flags?.svg} alt="Country Flag" />
-						</div>
-					</>
-				)
-				//TODO: Fix porque vaya tonteria he dejado aqui
-			case "continent":
-				return (
-					<>
-						<p>{question?.question}<span>{data[questionIndex-1]?.name?.common}</span>{question?.question2}</p>
-					</>
-				)
-			default:
-				return (
-					<>
-						<p>{question?.question}<span>{data[questionIndex-1]?.name?.common}</span>{question?.question2}</p>
-					</>
-				)
+		if (questionJson?.type === "flag") {
+			return (
+				<>
+					<p>{questionJson?.question}</p>
+					<div className="flag-img-wrapper">
+						<img src={countriesData[questionIndex-1]?.flags?.svg} alt="Country Flag" />
+					</div>
+				</>
+			);
+		} else {
+			return (
+				<>
+					<p>{questionJson?.question}<span>{countriesData[questionIndex-1]?.name?.common}</span>{questionJson?.question2}</p>
+				</>
+			);
 		}
 	}
 
@@ -41,7 +34,11 @@ const Question = ({questionIndex, question, data}) => {
     <div className="question">
 			<div className="question-index">
 				{Array.from({ length: 10 }, (_, index) => (
-					<div className="question-indicator" key={index + 1} onClick={() => {navigate(`/${index + 1}`)}}>
+					<div
+						className={`question-indicator ${Number(questionIndex) === (index + 1) ? 'question-indicator-selected' : ''}`}
+						key={index + 1}
+						onClick={() => {navigate(`/${index + 1}`)}}
+					>
 					 {index + 1}
 					 </div>
 				))}
