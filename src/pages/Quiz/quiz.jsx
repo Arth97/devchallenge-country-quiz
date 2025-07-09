@@ -15,7 +15,7 @@ const Quiz = () => {
 
 	const pointsCounter = 0;
 
-	const APIURL = "https://restcountries.com/v3.1/all?fields=name,capital,flags,region,continents,currencies,borders,car,landlocked";
+	const APIURL = "https://restcountries.com/v3.1/all?fields=name,capital,flags,region,continents,currencies,borders,car,languages,landlocked";
 
 	const navigate = useNavigate();
 	const { questionIndex } = useParams();
