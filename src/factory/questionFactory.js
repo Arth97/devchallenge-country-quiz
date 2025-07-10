@@ -57,77 +57,81 @@ const createCapitalQuestion = (auxQuestion, countryData, index, countriesData) =
 }
 
 const createLanguageQuestion = (auxQuestion, countryData, index, countriesData) => {
-	const answer = Object.values(countryData.languages);
+	const answer = Object.values(countryData.languages)[0] || "";
 	const otherLangs = countriesData.filter((c, i) => i !== index);
 	const incorrectOptions = _.sampleSize(
-		otherLangs.map(c => c.capital[0]).filter(Boolean), 3
+			otherLangs.map(c => Object.values(c.languages)[0]).filter(Boolean), 3
 	);
 
 	const options = _.shuffle([answer, ...incorrectOptions]);
-	auxQuestion = { 
-		...auxQuestion,
-		options,
-		answer
+	return {
+			...auxQuestion,
+			options,
+			answer
 	};
 }
 
 const createContinentQuestion = (auxQuestion, countryData, index, countriesData) => {
-	const answer = countryData.capital[0] || "";
-	const otherCapitals = countriesData.filter((c, i) => i !== index);
+	const answer = countryData.continents[0] || "";
+	const otherContinents = countriesData.filter((c, i) => i !== index);
 	const incorrectOptions = _.sampleSize(
-		otherCapitals.map(c => c.capital[0]).filter(Boolean), 3
+			otherContinents.map(c => c.continents[0]).filter(Boolean), 3
 	);
 
 	const options = _.shuffle([answer, ...incorrectOptions]);
-	auxQuestion = { 
-		...auxQuestion,
-		options,
-		answer
+	return {
+			...auxQuestion,
+			options,
+			answer
 	};
 }
 
 const createCurrencyQuestion = (auxQuestion, countryData, index, countriesData) => {
-	const answer = countryData.capital[0] || "";
-	const otherCapitals = countriesData.filter((c, i) => i !== index);
+	const currencyObj = countryData.currencies ? Object.values(countryData.currencies)[0] : null;
+	const answer = currencyObj?.name || "";
+	const otherCurrencies = countriesData.filter((c, i) => i !== index);
 	const incorrectOptions = _.sampleSize(
-		otherCapitals.map(c => c.capital[0]).filter(Boolean), 3
+			otherCurrencies.map(c => {
+					const curr = c.currencies ? Object.values(c.currencies)[0] : null;
+					return curr?.name;
+			}).filter(Boolean), 3
 	);
 
 	const options = _.shuffle([answer, ...incorrectOptions]);
-	auxQuestion = { 
-		...auxQuestion,
-		options,
-		answer
+	return {
+			...auxQuestion,
+			options,
+			answer
 	};
 }
 
 const createCarSideQuestion = (auxQuestion, countryData, index, countriesData) => {
-	const answer = countryData.capital[0] || "";
-	const otherCapitals = countriesData.filter((c, i) => i !== index);
+	const answer = countryData.car?.side || "";
+	const otherSides = countriesData.filter((c, i) => i !== index);
 	const incorrectOptions = _.sampleSize(
-		otherCapitals.map(c => c.capital[0]).filter(Boolean), 3
+			otherSides.map(c => c.car?.side).filter(Boolean), 3
 	);
 
 	const options = _.shuffle([answer, ...incorrectOptions]);
-	auxQuestion = { 
-		...auxQuestion,
-		options,
-		answer
+	return {
+			...auxQuestion,
+			options,
+			answer
 	};
 }
 
 const createLandlockedQuestion = (auxQuestion, countryData, index, countriesData) => {
-	const answer = countryData.capital[0] || "";
-	const otherCapitals = countriesData.filter((c, i) => i !== index);
+	const answer = countryData.landlocked ? "Yes" : "No";
+	const otherLandlocked = countriesData.filter((c, i) => i !== index);
 	const incorrectOptions = _.sampleSize(
-		otherCapitals.map(c => c.capital[0]).filter(Boolean), 3
+			otherLandlocked.map(c => c.landlocked ? "Yes" : "No").filter(Boolean), 3
 	);
 
 	const options = _.shuffle([answer, ...incorrectOptions]);
-	auxQuestion = { 
-		...auxQuestion,
-		options,
-		answer
+	return {
+			...auxQuestion,
+			options,
+			answer
 	};
 }
 
