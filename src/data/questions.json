@@ -14,13 +14,6 @@
     "answer": "France"
   },
   {
-    "type": "language",
-    "question": "What language is spoken in ",
-    "question2": "?",
-    "options": ["Spanish", "Portuguese", "French", "English"],
-    "answer": "Portuguese"
-  },
-  {
     "type": "continent",
     "question": "On which continent is ",
     "question2": " located?",
@@ -41,17 +34,11 @@
     "options": ["Spain", "Egypt", "Australia", "Japan"],
     "answer": "Spain"
   },
-  {
-    "type": "car_side",
-    "question": "On which side of the road do they drive in ",
+	{
+    "type": "idd",
+    "question": "What is the international dialing code for ",
     "question2": "?",
-    "options": ["Left", "Right", "Center", "No rule"],
-    "answer": "Left"
-  },
-  {
-    "type": "landlocked",
-    "question": "Is this country landlocked? ",
-    "options": ["Yes", "No", "Unknown", "Partially"],
-    "answer": "No"
+    "options": ["+33", "+49", "+34", "+39"],
+    "answer": "+33"
   }
 ]
