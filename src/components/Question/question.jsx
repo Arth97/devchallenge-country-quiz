@@ -2,29 +2,30 @@ import { useEffect } from 'react';
 import './question.css';
 import { useNavigate } from 'react-router';
 
-const Question = ({questionIndex, questionJson, countriesData}) => {
+const Question = ({ questionIndex, currentQuestion }) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		// console.log("QUESTIONJSON", questionJson);
-		// console.log("COUNTRIES-DATA", countriesData);
-		// console.log("questionIndex", questionIndex);
-	});
+		console.log("---");
+		console.log("currentQuestion", currentQuestion);
+	},[]);
+
+	// TODO: Change countriesData (???)
 
 	const getQuestion = () => {
-		if (questionJson?.type === "flag") {
+		if (currentQuestion?.type === "flag") {
 			return (
 				<>
-					<p>{questionJson?.question}</p>
+					<p>{currentQuestion?.question}</p>
 					<div className="flag-img-wrapper">
-						<img src={countriesData[questionIndex-1]?.flags?.svg} alt="Country Flag" />
+						<img src={currentQuestion?.flag} alt="Country Flag" />
 					</div>
 				</>
 			);
 		} else {
 			return (
 				<>
-					<p>{questionJson?.question}<span>{countriesData[questionIndex-1]?.name?.common}</span>{questionJson?.question2}</p>
+					<p>{currentQuestion?.question}<span>{currentQuestion?.questionValue}</span>{currentQuestion?.question2}</p>
 				</>
 			);
 		}
@@ -45,15 +46,14 @@ const Question = ({questionIndex, questionJson, countriesData}) => {
 			</div>
 
 			<div className="text-semibold-20 flex flex-row items-center gap-4">
-				{/* {question?.question} */}
 				{getQuestion()}
 			</div>
 
 			<div className="question-answers">
-				<div className="answer">Content</div>
-				<div className="answer">Content</div>
-				<div className="answer">Content</div>
-				<div className="answer">Content</div>
+				<div className="answer">{currentQuestion.options[0]}</div>
+				<div className="answer">{currentQuestion.options[1]}</div>
+				<div className="answer">{currentQuestion.options[2]}</div>
+				<div className="answer">{currentQuestion.options[3]}</div>
 			</div>
     </div>
   );

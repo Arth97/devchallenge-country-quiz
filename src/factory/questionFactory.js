@@ -1,13 +1,14 @@
 import _ from 'lodash';
 import questionsJson from '../data/questions.json';
 
-const QuestionFactory = (countryData, index, countriesData) => {
+const questionFactory = (countryData, index, countriesData) => {
 	const randomQuestion = _.sample(questionsJson);
 
 	let auxQuestion = {
 		type: randomQuestion.type,
 		question: randomQuestion.question,
 		question2: null,
+		questionValue: null,
 		flag: null,
 		options: null,
 		answer: null
@@ -26,6 +27,7 @@ const QuestionFactory = (countryData, index, countriesData) => {
 }
 
 const createCapitalQuestion = (auxQuestion, countryData, index, countriesData) => {
+	const questionValue = countryData.name.common || "";
 	const answer = countryData.capital[0] || "";
 	const otherCapitals = countriesData.filter((c, i) => i !== index);
 	const incorrectOptions = _.sampleSize(
@@ -36,6 +38,7 @@ const createCapitalQuestion = (auxQuestion, countryData, index, countriesData) =
 	return auxQuestion = { 
 		...auxQuestion,
 		options,
+		questionValue,
 		answer
 	};
 }
@@ -56,6 +59,7 @@ const createFlagQuestion = (auxQuestion, countryData, index, countriesData) => {
 }
 
 const createContinentQuestion = (auxQuestion, countryData, index, countriesData) => {
+	const questionValue = countryData.name.common || "";
 	const answer = countryData.continents[0] || "";
 	const otherContinents = countriesData.filter((c, i) => i !== index);
 	const incorrectOptions = _.sampleSize(
@@ -66,11 +70,13 @@ const createContinentQuestion = (auxQuestion, countryData, index, countriesData)
 	return {
 		...auxQuestion,
 		options,
+		questionValue,
 		answer
 	};
 }
 
 const createCurrencyQuestion = (auxQuestion, countryData, index, countriesData) => {
+	const questionValue = countryData.name.common || "";
   const currencyCode = countryData.currencies ? Object.keys(countryData.currencies)[0] : null;
   const answer = currencyCode || "";
   const otherCurrencies = countriesData.filter((c, i) => {
@@ -90,6 +96,7 @@ const createCurrencyQuestion = (auxQuestion, countryData, index, countriesData) 
   return {
     ...auxQuestion,
     options,
+		questionValue,
     answer
   };
 }
@@ -98,6 +105,7 @@ const createCurrencyQuestion = (auxQuestion, countryData, index, countriesData) 
 // TODO: SI EL PAIS NO TIENE FRONTERAS, QUE RE SAQUE OTRA PREGUNTA NUEVA
 // !!!!!!!!!!!!!!!!!!!!!!!!
 const createBordersQuestion = (auxQuestion, countryData, index, countriesData) => {
+	const questionValue = countryData.name.common || "";
 	const borders = countryData.borders || [];
 	let answer = null;
 
@@ -117,11 +125,13 @@ const createBordersQuestion = (auxQuestion, countryData, index, countriesData) =
 	return {
 		...auxQuestion,
 		options,
+		questionValue,
 		answer
 	};
 }
 
 const createIddQuestion = (auxQuestion, countryData, index, countriesData) => {
+	const questionValue = countryData.name.common || "";
 	const answer = countryData.idd?.root + (countryData.idd?.suffixes?.[0] || "");
 	const otherCountries = countriesData.filter((c, i) => i !== index);
 	const incorrectOptions = _.sampleSize(
@@ -134,6 +144,7 @@ const createIddQuestion = (auxQuestion, countryData, index, countriesData) => {
 	return {
 		...auxQuestion,
 		options,
+		questionValue,
 		answer
 	};
 };
@@ -145,7 +156,8 @@ const questionFactoryType = {
   continent: createContinentQuestion,
   currency: createCurrencyQuestion,
   borders: createBordersQuestion,
+  idd: createIddQuestion,
 };
 
 
-export default QuestionFactory;
+export default questionFactory;
