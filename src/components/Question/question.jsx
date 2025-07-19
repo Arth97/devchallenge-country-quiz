@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import './question.css';
 import { useNavigate } from 'react-router';
 
-const Question = ({ questionIndex, currentQuestion }) => {
+const Question = ({ questionIndex, currentQuestion, handleAnswer }) => {
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -10,7 +10,11 @@ const Question = ({ questionIndex, currentQuestion }) => {
 		console.log("currentQuestion", currentQuestion);
 	},[]);
 
-	// TODO: Change countriesData (???)
+	const checkAnswer = (userAnswer) => {
+		console.log("userAnswer", userAnswer);
+		console.log("currentQuestion.answer", currentQuestion.answer);
+		handleAnswer(currentQuestion.answer===userAnswer)
+	}
 
 	const getQuestion = () => {
 		if (currentQuestion?.type === "flag") {
@@ -50,10 +54,15 @@ const Question = ({ questionIndex, currentQuestion }) => {
 			</div>
 
 			<div className="question-answers">
-				<div className="answer">{currentQuestion.options[0]}</div>
-				<div className="answer">{currentQuestion.options[1]}</div>
-				<div className="answer">{currentQuestion.options[2]}</div>
-				<div className="answer">{currentQuestion.options[3]}</div>
+				{Array.isArray(currentQuestion?.options) && currentQuestion.options.length === 4 ? (
+					currentQuestion.options.map((option, idx) => (
+						<div className="answer" key={idx} onClick={() => checkAnswer(option)}>
+							{option}
+						</div>
+					))
+				) : (
+					<div className="text-bold-14">Loading options...</div>
+				)}
 			</div>
     </div>
   );

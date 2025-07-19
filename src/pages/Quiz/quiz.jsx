@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import './quiz.css';
-import _ from 'lodash';
+import _, { set } from 'lodash';
 import { useNavigate, useParams } from 'react-router';
 import Question from '../../components/Question/question';
 import questionFactory from '../../factory/questionFactory';
@@ -9,7 +9,7 @@ import questionFactory from '../../factory/questionFactory';
 const Quiz = () => {
 	const [questionList, setQuestionList] = useState([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [userAnswers, setUserAnswers] = useState([]);
+  const [userAnswers, setUserAnswers] = useState(Array(10).fill(null));
   const [showResult, setShowResult] = useState(false);
   const [countriesData, setCountriesData] = useState([]);
 
@@ -34,7 +34,7 @@ const Quiz = () => {
 	useEffect(() => {
 		if (questionList.length)
 			setCurrentQuestion(questionList[Number(questionIndex)-1]);
-  }, [questionIndex]);
+  }, [questionIndex, questionList]);
 	// #endregion useEffects
 
 
@@ -61,16 +61,17 @@ const Quiz = () => {
 		}
 	}
 
-  const handleAnswer = (questionIndex, answerIndex) => {
+  const handleAnswer = (answer) => {
+		const userAnswer = [...userAnswers];
+		userAnswer[Number(questionIndex)-1] = answer;
+		setUserAnswers(userAnswer)
     // TODO: Visual feedback for question answered
   };
 
   const handleNextQuestion = () => {
-
   };
 
   const handlePrevQuestion = () => {
-
   };
 
   const handleFinishQuiz = () => {
@@ -86,7 +87,9 @@ const Quiz = () => {
 					<p><span>{pointsCounter}</span>/10 Points</p>
 				</div>
 			</div>
-			<Question questionIndex={questionIndex} currentQuestion={currentQuestion} />
+			{questionList.length > 0 ? (
+				<Question questionIndex={questionIndex} currentQuestion={currentQuestion} handleAnswer={handleAnswer} />
+			) : null}
     </div>
   );
 };
