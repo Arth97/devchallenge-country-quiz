@@ -1,20 +1,24 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './question.css';
 import { useNavigate } from 'react-router';
 
-const Question = ({ questionIndex, currentQuestion, handleAnswer }) => {
+const Question = ({ questionIndex, currentQuestion, userAnswers, handleAnswer }) => {
 	const navigate = useNavigate();
+	const [selectedIdx, setSelectedIdx] = useState(null);
 
 	useEffect(() => {
-		console.log("---");
-		console.log("currentQuestion", currentQuestion);
-	},[]);
+		let idx = currentQuestion?.options?.findIndex((option, index) => {
+			return option === userAnswers[questionIndex-1];
+		});
+		setSelectedIdx(idx);
+	},[currentQuestion, questionIndex]);
 
-	const checkAnswer = (userAnswer) => {
-		console.log("userAnswer", userAnswer);
-		console.log("currentQuestion.answer", currentQuestion.answer);
-		handleAnswer(currentQuestion.answer===userAnswer)
+	const checkAnswer = (userAnswer, idx) => {
+		setSelectedIdx(idx);
+		handleAnswer(userAnswer)
 	}
+
+	// TODO: CANT CHANGE OPTION ONCE SELECTED
 
 	const getQuestion = () => {
 		if (currentQuestion?.type === "flag") {
@@ -29,7 +33,13 @@ const Question = ({ questionIndex, currentQuestion, handleAnswer }) => {
 		} else {
 			return (
 				<>
-					<p>{currentQuestion?.question}<span>{currentQuestion?.questionValue}</span>{currentQuestion?.question2}</p>
+					<p>
+						{currentQuestion?.question}
+						<span>
+							{currentQuestion?.questionValue}
+						</span>
+						{currentQuestion?.question2}
+					</p>
 				</>
 			);
 		}
@@ -38,15 +48,26 @@ const Question = ({ questionIndex, currentQuestion, handleAnswer }) => {
   return (
     <div className="question">
 			<div className="question-index">
-				{Array.from({ length: 10 }, (_, index) => (
-					<div
-						className={`question-indicator ${Number(questionIndex) === (index + 1) ? 'question-indicator-selected' : ''}`}
-						key={index + 1}
-						onClick={() => {navigate(`/${index + 1}`)}}
-					>
-					 {index + 1}
-					 </div>
-				))}
+				{Array.from({ length: 10 }, (_, index) => {
+					const isCurrent = Number(questionIndex) === (index + 1);
+					const isCompleted = Array.isArray(userAnswers) && userAnswers[index] !== null;
+
+					return (
+						<div
+							className={`question-indicator ${
+								isCurrent
+								? 'question-indicator-selected'
+								: isCompleted
+								? 'question-indicator-completed'
+								: ''
+							}`}
+							key={index + 1}
+							onClick={() => { navigate(`/${index + 1}`); setSelectedIdx(null); }}
+						>
+							{index + 1}
+						</div>
+					);
+				})}
 			</div>
 
 			<div className="text-semibold-20 flex flex-row items-center gap-4">
@@ -56,13 +77,16 @@ const Question = ({ questionIndex, currentQuestion, handleAnswer }) => {
 			<div className="question-answers">
 				{Array.isArray(currentQuestion?.options) && currentQuestion.options.length === 4 ? (
 					currentQuestion.options.map((option, idx) => (
-						<div className="answer" key={idx} onClick={() => checkAnswer(option)}>
+						<div
+							className={`answer${selectedIdx === idx ? ' answer-selected' : ''}`}
+							key={idx}
+							onClick={() => checkAnswer(option, idx)}
+						>
 							{option}
 						</div>
-					))
-				) : (
-					<div className="text-bold-14">Loading options...</div>
-				)}
+					))) : (
+						<div className="text-bold-14">Loading options...</div>
+					)}
 			</div>
     </div>
   );

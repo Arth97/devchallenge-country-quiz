@@ -61,9 +61,9 @@ const Quiz = () => {
 		}
 	}
 
-  const handleAnswer = (answer) => {
+  const handleAnswer = (userSelectedAnswer) => {
 		const userAnswer = [...userAnswers];
-		userAnswer[Number(questionIndex)-1] = answer;
+		userAnswer[Number(questionIndex)-1] = userSelectedAnswer;
 		setUserAnswers(userAnswer)
     // TODO: Visual feedback for question answered
   };
@@ -88,7 +88,7 @@ const Quiz = () => {
 				</div>
 			</div>
 			{questionList.length > 0 ? (
-				<Question questionIndex={questionIndex} currentQuestion={currentQuestion} handleAnswer={handleAnswer} />
+				<Question questionIndex={questionIndex} currentQuestion={currentQuestion} userAnswers={userAnswers} handleAnswer={handleAnswer} />
 			) : null}
     </div>
   );
