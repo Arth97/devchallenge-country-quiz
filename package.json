@@ -27,6 +27,7 @@
       "react-app/jest"
     ]
   },
+  "homepage": "https://arth97.github.io/devchallenge-country-quiz/",
   "browserslist": {
     "production": [
       ">0.2%",

@@ -19,7 +19,7 @@ const Results = () => {
     <div className="results-bg">
       <div className="results">
         <div className="results-icon">
-          <img src="/congrats.png" alt="Party" className="w-full h-full" />
+          <img src="congrats.png" alt="Party" className="w-full h-full" />
         </div>
         <h2 className="text-medium-24 results-title">
           Congrats! You completed the quiz.

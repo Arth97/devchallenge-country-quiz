@@ -91,8 +91,8 @@ const Question = ({ questionIndex, currentQuestion, userAnswers, handleAnswer })
 							<span className="ml-2">
 								{(selectedIdx !== null && selectedIdx !== -1) && (
 									option === currentQuestion.answer
-										? <img src='/Check_round_fill.svg' alt="Correct" />
-										: (selectedIdx === idx && option !== currentQuestion.answer && <img src='/Close_round_fill.svg' alt="Incorrect" />)
+										? <img src='Check_round_fill.svg' alt="Correct" />
+										: (selectedIdx === idx && option !== currentQuestion.answer && <img src='Close_round_fill.svg' alt="Incorrect" />)
 								)}
 							</span>
 						</div>
