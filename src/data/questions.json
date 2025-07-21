@@ -2,43 +2,31 @@
   {
     "type": "capital",
     "question": "What is the capital of ",
-    "question2": "?",
-    "options": ["Berlin", "Madrid", "Paris", "Rome"],
-    "answer": "Paris"
+    "question2": "?"
   },
   {
     "type": "flag",
     "question": "Which country does this flag belong to?",
-    "image": "https://flagcdn.com/fr.svg",
-    "options": ["Italy", "France", "United Kingdom", "Netherlands"],
-    "answer": "France"
+    "image": "https://flagcdn.com/fr.svg"
   },
   {
     "type": "continent",
     "question": "On which continent is ",
-    "question2": " located?",
-    "options": ["Asia", "Africa", "Europe", "America"],
-    "answer": "Europe"
+    "question2": " located?"
   },
   {
     "type": "currency",
     "question": "What is the currency of ",
-    "question2": "?",
-    "options": ["Euro", "Ruble", "Dollar", "Real"],
-    "answer": "Ruble"
+    "question2": "?"
   },
   {
     "type": "borders",
     "question": "Which of these countries borders ",
-    "question2": "?",
-    "options": ["Spain", "Egypt", "Australia", "Japan"],
-    "answer": "Spain"
+    "question2": "?"
   },
 	{
     "type": "idd",
     "question": "What is the international dialing code for ",
-    "question2": "?",
-    "options": ["+33", "+49", "+34", "+39"],
-    "answer": "+33"
+    "question2": "?"
   }
 ]
