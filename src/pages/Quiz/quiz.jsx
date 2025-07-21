@@ -58,10 +58,10 @@ const Quiz = () => {
 		}
 	}
 
-	const handleAnswer = async (userSelectedAnswer) => {
+	const handleAnswer = (userSelectedAnswer) => {
 		let newPoints = pointsCounter;
 		if (userSelectedAnswer === currentQuestion?.answer) {
-			newPoints = pointsCounter + 1;
+			newPoints++;
 			setPointsCounter(newPoints);
 		}
 		const userAnswer = [...userAnswers];
