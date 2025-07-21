@@ -58,20 +58,24 @@ const Quiz = () => {
 		}
 	}
 
-  const handleAnswer = async (userSelectedAnswer) => {
-		if (userSelectedAnswer === currentQuestion?.answer)
-			await setPointsCounter(pointsCounter + 1);
+	const handleAnswer = async (userSelectedAnswer) => {
+		let newPoints = pointsCounter;
+		if (userSelectedAnswer === currentQuestion?.answer) {
+			newPoints = pointsCounter + 1;
+			setPointsCounter(newPoints);
+		}
 		const userAnswer = [...userAnswers];
 		userAnswer[Number(questionIndex)-1] = userSelectedAnswer;
-		setUserAnswers(userAnswer)
+		setUserAnswers(userAnswer);
 		setQuestionsAnswered(questionsAnswered + 1);
+
 		if (Number(questionIndex) === 10) {
-			localStorage.setItem('pointsCounter', String(pointsCounter));
+			localStorage.setItem('pointsCounter', String(newPoints));
 			setTimeout(() => {
 				navigate('/results');
 			}, 2000);
 		}
-  };
+	};
 
   return (
     <div className="quiz">
