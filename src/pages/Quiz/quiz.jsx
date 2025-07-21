@@ -16,6 +16,7 @@ const Quiz = () => {
 
 	const API_URL = "https://restcountries.com/v3.1/all?fields=name,capital,idd,flags,region,continents,currencies,borders,languages";
 
+	const baseUrl = "/devchallenge-country-quiz"
 	const navigate = useNavigate();
 	const { questionIndex } = useParams();
 
@@ -23,7 +24,7 @@ const Quiz = () => {
 	// #region useEffects
   useEffect(() => {
 		fetchData();
-		navigate('/1')
+		navigate(`${baseUrl}/1`);
   }, []);
 
   useEffect(() => {
@@ -68,7 +69,7 @@ const Quiz = () => {
 		if (Number(questionIndex) === 10) {
 			localStorage.setItem('pointsCounter', String(pointsCounter));
 			setTimeout(() => {
-				navigate(`/results`);
+				navigate(`${baseUrl}/results`);
 			}, 2000);
 		}
   };

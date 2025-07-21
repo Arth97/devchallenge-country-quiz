@@ -5,7 +5,6 @@ import Results from './pages/Results/results';
 import Quiz from './pages/Quiz/quiz';
 import React from 'react';
 
-
 const baseUrl = "/devchallenge-country-quiz"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -14,9 +13,7 @@ root.render(
 		<BrowserRouter>
 			<Routes>
 				<Route path={`${baseUrl}/`} element={<Quiz />} />
-				<Route path="/:questionIndex" element={<Quiz />} />
 				<Route path={`${baseUrl}/:questionIndex`} element={<Quiz />} />
-				<Route path="/results" element={<Results />} />
 				<Route path={`${baseUrl}/results`} element={<Results />} />
 			</Routes>
 		</BrowserRouter>
