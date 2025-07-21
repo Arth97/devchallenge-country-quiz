@@ -12,7 +12,7 @@ const Results = () => {
 	},[])
 
   const handlePlayAgain = () => {
-		navigate(`${baseUrl}/1`);
+		navigate(`${baseUrl}/`);
     window.location.reload();
   };
 

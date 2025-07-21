@@ -21,7 +21,7 @@ const Question = ({ questionIndex, currentQuestion, userAnswers, handleAnswer })
 	}
 
 	const handleNavButtons = (index) => {
-		if ((index+1) == questionIndex) return;
+		if ((index+1) === questionIndex) return;
 		navigate(`${baseUrl}/${index + 1}`);
 		setSelectedIdx(null);
 	}
