@@ -3,7 +3,6 @@ import './results.css';
 import { useEffect, useState } from 'react';
 
 const Results = () => {
-	const baseUrl = "/devchallenge-country-quiz"
   const navigate = useNavigate();
 	const [pointsCounter, setPointsCounter] = useState(0);
 
@@ -12,7 +11,7 @@ const Results = () => {
 	},[])
 
   const handlePlayAgain = () => {
-		navigate(`${baseUrl}/`);
+		navigate('/');
     window.location.reload();
   };
 

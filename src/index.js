@@ -10,11 +10,12 @@ const baseUrl = "/devchallenge-country-quiz"
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-		<BrowserRouter>
+		<BrowserRouter basename="/devchallenge-country-quiz">
 			<Routes>
-				<Route path={`${baseUrl}/`} element={<Quiz />} />
-				<Route path={`${baseUrl}/:questionIndex`} element={<Quiz />} />
-				<Route path={`${baseUrl}/results`} element={<Results />} />
+				<Route path="*" element={<Quiz />} />
+				<Route path="/" element={<Quiz />} />
+				<Route path=":questionIndex" element={<Quiz />} />
+				<Route path="results" element={<Results />} />
 			</Routes>
 		</BrowserRouter>
   </React.StrictMode>
