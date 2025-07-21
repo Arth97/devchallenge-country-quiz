@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import './quiz.css';
-import _, { set } from 'lodash';
+import _ from 'lodash';
 import { useNavigate, useParams } from 'react-router';
 import Question from '../../components/Question/question';
 import questionFactory from '../../factory/questionFactory';
@@ -68,6 +68,7 @@ const Quiz = () => {
 		setUserAnswers(userAnswer)
 		setQuestionsAnswered(questionsAnswered + 1);
 		if (Number(questionIndex) === 10) {
+			localStorage.setItem('pointsCounter', String(pointsCounter));
 			setTimeout(() => {
 				navigate(`/results`);
 			}, 2000);
