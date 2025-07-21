@@ -87,7 +87,6 @@ const createCurrencyQuestion = (auxQuestion, countryData, index, countriesData) 
     return currCode && currCode !== answer;
   });
 
-	//TODO: TESTEAR ESTO PORQUE CREO QUE ROMPE SEGURO xdd
   const incorrectOptions = _.sampleSize(
     otherCurrencies.map(c => {
       return c.currencies ? Object.keys(c.currencies)[0] : null;

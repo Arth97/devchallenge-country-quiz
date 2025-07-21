@@ -43,7 +43,6 @@ const Quiz = () => {
 		auxQuestionList = countriesData.map((countryData, index) => {
 			return questionFactory(countryData, index, countriesData)
 		})
-		console.log("auxQuestionList", auxQuestionList);
 		setQuestionList(auxQuestionList)
 	}
 
@@ -52,7 +51,6 @@ const Quiz = () => {
 			const response = await fetch(API_URL);
 			const data = await response.json();
 			const randomData = _.sampleSize(data, 10);
-			console.log("randomData", randomData);
 			setCountriesData(randomData);
 			return;
 		} catch (err) {
