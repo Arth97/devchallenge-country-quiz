@@ -2,7 +2,11 @@ import _ from 'lodash';
 import questionsJson from '../data/questions.json';
 
 const questionFactory = (countryData, index, countriesData) => {
-	const randomQuestion = _.sample(questionsJson);
+	let randomQuestion = _.sample(questionsJson);
+	if (randomQuestion.type==="borders" && (!countryData.borders || countryData.borders.length === 0))
+		randomQuestion = _.sample(questionsJson.filter(q => q.type !== "borders"));
+	if (countryData.region === "Antarctic")
+		randomQuestion = questionsJson.find(q => q.type === "idd");
 
 	let auxQuestion = {
 		type: randomQuestion.type,
@@ -59,13 +63,15 @@ const createFlagQuestion = (auxQuestion, countryData, index, countriesData) => {
 }
 
 const createContinentQuestion = (auxQuestion, countryData, index, countriesData) => {
-	const questionValue = countryData.name.common || "";
-	const answer = countryData.continents[0] || "";
-	const otherContinents = countriesData.filter((c, i) => i !== index);
-	const incorrectOptions = _.sampleSize(
-		otherContinents.map(c => c.continents[0]).filter(Boolean), 3
-	);
-	const options = _.shuffle([answer, ...incorrectOptions]);
+    const questionValue = countryData.name.common || "";
+    const answer = countryData.continents[0] || "";
+    const otherContinents = countriesData
+			.filter((c, i) => i !== index)
+			.map(c => c.continents[0])
+			.filter(Boolean);
+    const uniqueContinents = Array.from(new Set(otherContinents)).filter(cont => cont !== answer);
+    const incorrectOptions = _.sampleSize(uniqueContinents, 3);
+    const options = _.shuffle([answer, ...incorrectOptions]);
 
 	return {
 		...auxQuestion,
@@ -101,9 +107,6 @@ const createCurrencyQuestion = (auxQuestion, countryData, index, countriesData) 
   };
 }
 
-// !!!!!!!!!!!!!!!!!!!!!!!!
-// TODO: SI EL PAIS NO TIENE FRONTERAS, QUE RE SAQUE OTRA PREGUNTA NUEVA
-// !!!!!!!!!!!!!!!!!!!!!!!!
 const createBordersQuestion = (auxQuestion, countryData, index, countriesData) => {
 	const questionValue = countryData.name.common || "";
 	const borders = countryData.borders || [];
@@ -111,7 +114,10 @@ const createBordersQuestion = (auxQuestion, countryData, index, countriesData) =
 
 	if (borders.length > 0) {
 		const borderCountry = countriesData.find(c => c.cca3 === borders[0]);
-		answer = borderCountry?.name?.common || "";
+		let border;
+		if (borderCountry===undefined)
+			border = fetchByCode(borders[0])
+		answer = borderCountry?.name?.common || border;
 	}
 
 	const nonBorderCountries = countriesData.filter(
@@ -148,6 +154,18 @@ const createIddQuestion = (auxQuestion, countryData, index, countriesData) => {
 		answer
 	};
 };
+
+const fetchByCode = async (code) => {
+	const API_URL = "https://restcountries.com/v3.1/alpha/{code}";
+
+	try {
+		const response = await fetch(API_URL.replace("{code}", code));
+		const data = await response.json();
+		return data[0].name.common;
+	} catch (err) {
+		console.log("err", err);
+	}
+}
 
 
 const questionFactoryType = {

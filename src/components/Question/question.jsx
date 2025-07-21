@@ -14,11 +14,16 @@ const Question = ({ questionIndex, currentQuestion, userAnswers, handleAnswer })
 	},[currentQuestion, questionIndex]);
 
 	const checkAnswer = (userAnswer, idx) => {
+		if (userAnswers[questionIndex-1] !== null) return;
 		setSelectedIdx(idx);
 		handleAnswer(userAnswer)
 	}
 
-	// TODO: CANT CHANGE OPTION ONCE SELECTED
+	const handleNavButtons = (index) => {
+		if ((index+1) == questionIndex) return;
+		navigate(`/${index + 1}`);
+		setSelectedIdx(null);
+	}
 
 	const getQuestion = () => {
 		if (currentQuestion?.type === "flag") {
@@ -62,7 +67,7 @@ const Question = ({ questionIndex, currentQuestion, userAnswers, handleAnswer })
 								: ''
 							}`}
 							key={index + 1}
-							onClick={() => { navigate(`/${index + 1}`); setSelectedIdx(null); }}
+							onClick={() => { handleNavButtons(index) }}
 						>
 							{index + 1}
 						</div>
@@ -83,10 +88,18 @@ const Question = ({ questionIndex, currentQuestion, userAnswers, handleAnswer })
 							onClick={() => checkAnswer(option, idx)}
 						>
 							{option}
+							<span className="ml-2">
+								{(selectedIdx !== null && selectedIdx !== -1) && (
+									option === currentQuestion.answer
+										? <img src='/Check_round_fill.svg' alt="Correct" />
+										: (selectedIdx === idx && option !== currentQuestion.answer && <img src='/Close_round_fill.svg' alt="Incorrect" />)
+								)}
+							</span>
 						</div>
-					))) : (
-						<div className="text-bold-14">Loading options...</div>
-					)}
+					))
+				) : (
+					<div className="text-bold-14">Loading options...</div>
+				)}
 			</div>
     </div>
   );

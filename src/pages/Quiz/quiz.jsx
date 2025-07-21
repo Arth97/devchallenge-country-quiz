@@ -8,14 +8,13 @@ import questionFactory from '../../factory/questionFactory';
 
 const Quiz = () => {
 	const [questionList, setQuestionList] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(null);
   const [userAnswers, setUserAnswers] = useState(Array(10).fill(null));
-  const [showResult, setShowResult] = useState(false);
   const [countriesData, setCountriesData] = useState([]);
+	const [pointsCounter, setPointsCounter] = useState(0);
+	const [questionsAnswered, setQuestionsAnswered] = useState(0);
 
-	const pointsCounter = 0;
-
-	const APIURL = "https://restcountries.com/v3.1/all?fields=name,capital,idd,flags,region,continents,currencies,borders,languages";
+	const API_URL = "https://restcountries.com/v3.1/all?fields=name,capital,idd,flags,region,continents,currencies,borders,languages";
 
 	const navigate = useNavigate();
 	const { questionIndex } = useParams();
@@ -50,7 +49,7 @@ const Quiz = () => {
 
 	const fetchData = async () => {
 		try {
-			const response = await fetch(APIURL);
+			const response = await fetch(API_URL);
 			const data = await response.json();
 			const randomData = _.sampleSize(data, 10);
 			console.log("randomData", randomData);
@@ -62,20 +61,17 @@ const Quiz = () => {
 	}
 
   const handleAnswer = (userSelectedAnswer) => {
+		if (userSelectedAnswer === currentQuestion?.answer)
+			setPointsCounter(pointsCounter + 1);
 		const userAnswer = [...userAnswers];
 		userAnswer[Number(questionIndex)-1] = userSelectedAnswer;
 		setUserAnswers(userAnswer)
-    // TODO: Visual feedback for question answered
-  };
-
-  const handleNextQuestion = () => {
-  };
-
-  const handlePrevQuestion = () => {
-  };
-
-  const handleFinishQuiz = () => {
-		// TODO: Throw results
+		setQuestionsAnswered(questionsAnswered + 1);
+		if (Number(questionIndex) === 10) {
+			setTimeout(() => {
+				navigate(`/results`);
+			}, 2000);
+		}
   };
 
   return (
