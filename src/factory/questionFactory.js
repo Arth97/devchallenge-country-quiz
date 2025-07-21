@@ -2,12 +2,8 @@ import _ from 'lodash';
 import questionsJson from '../data/questions.json';
 
 const questionFactory = (countryData, index, countriesData) => {
-	let randomQuestion = _.sample(questionsJson);
-	if (randomQuestion.type==="borders" && (!countryData.borders || countryData.borders.length === 0))
-		randomQuestion = _.sample(questionsJson.filter(q => q.type !== "borders"));
-	if (countryData.region === "Antarctic")
-		randomQuestion = questionsJson.find(q => q.type === "idd");
-
+	const randomQuestion = getQuestionType(countryData);
+	
 	let auxQuestion = {
 		type: randomQuestion.type,
 		question: randomQuestion.question,
@@ -165,6 +161,20 @@ const fetchByCode = async (code) => {
 	} catch (err) {
 		console.log("err", err);
 	}
+}
+
+const getQuestionType = (countryData) => {
+	let randomQuestion = _.sample(questionsJson);
+
+	// Prevent errors
+	if (randomQuestion.type==="borders" && (!countryData.borders || countryData.borders.length === 0))
+		randomQuestion = _.sample(questionsJson.filter(q => q.type !== "borders"));
+	if (randomQuestion.type==="idd" && countryData.idd == '')
+		randomQuestion = _.sample(questionsJson.filter(q => q.type !== "idd"));
+	if (countryData.region === "Antarctic")
+		randomQuestion = questionsJson.find(q => q.type === "idd");
+
+	return randomQuestion;
 }
 
 

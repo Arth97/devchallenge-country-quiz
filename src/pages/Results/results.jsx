@@ -1,13 +1,13 @@
 import { useNavigate } from 'react-router';
 import './results.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Results = () => {
   const navigate = useNavigate();
-	let pointsCounter = 0;
+	const [pointsCounter, setPointsCounter] = useState(0);
 
 	useEffect(() => {
-		pointsCounter = Number(localStorage.getItem('pointsCounter') || 0);
+		setPointsCounter(Number(localStorage.getItem('pointsCounter')))
 	},[])
 
   const handlePlayAgain = () => {
